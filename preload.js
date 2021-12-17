@@ -1,7 +1,6 @@
-const desktopCapturer = require('electron').desktopCapturer
+const {desktopCapturer, contextBridge} = require('electron')
 
 
-const { contextBridge } = require('electron')
 
 
 
