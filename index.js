@@ -1,4 +1,4 @@
-const {app} = require("electron");
+const {app, ipcMain} = require("electron");
 const {BrowserWindow} = require("electron-acrylic-window");
 const path = require('path')
 
@@ -15,7 +15,10 @@ const onReady = () => {
   window.loadURL(`file://${__dirname}/render/index.html`)
 }
 
-
+ipcMain.handle('default-pictures-path', async () => {
+  const path = app.getPath('pictures');
+  return path;
+})
 
 app.whenReady().then(onReady)
 

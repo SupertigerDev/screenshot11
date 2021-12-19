@@ -1,4 +1,4 @@
-const {desktopCapturer, contextBridge} = require('electron')
+const {desktopCapturer, contextBridge, ipcRenderer} = require('electron')
 
 
 
@@ -15,9 +15,13 @@ const getWindows = async () => {
     }
   }).filter(window => window.name !== 'screenshot11')
 }
+const  defaultPicturesPath = () => {
+  return ipcRenderer.invoke('default-pictures-path')
+}
 
 contextBridge.exposeInMainWorld('electron', {
-  getWindows
+  getWindows,
+  defaultPicturesPath
 })
 
 
