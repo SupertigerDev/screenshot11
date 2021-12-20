@@ -1,4 +1,5 @@
 const {app, ipcMain} = require("electron");
+const fs = require("fs");
 const {BrowserWindow} = require("electron-acrylic-window");
 const path = require('path')
 
@@ -16,8 +17,11 @@ const onReady = () => {
 }
 
 ipcMain.handle('default-pictures-path', async () => {
-  const path = app.getPath('pictures');
-  return path;
+  const picturesPath = path.join(app.getPath('pictures'), "Screenshot11");
+  if (!fs.existsSync(picturesPath)) {
+    fs.mkdirSync(picturesPath);
+  }
+  return picturesPath;
 })
 
 app.whenReady().then(onReady)

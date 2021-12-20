@@ -1,9 +1,17 @@
+import { showSettingsPage } from "../settings/settingsPage.js";
+import { getPicturesPath } from "./utils.js";
 
+const settingsButton = document.querySelector("[settings-button]")
 const windowCaptureButton = document.querySelector("[window-capture-button]")
 const windowCaptureDropdown = document.querySelector("[window-capture-dropdown]")
 let windows = [];
 let showWindowCaptureDropdown = false;
 
+
+
+showSettingsPage()
+settingsButton.addEventListener("click", () => {
+})
 
 
 windowCaptureButton.addEventListener("click", async () => {
@@ -48,7 +56,7 @@ windowCaptureDropdown.addEventListener("click", async (event) => {
   const id = target.id;
   const stream = await getStream(id);
   const dataUrl = await takeScreenshot(stream);
-  console.log(dataUrl)
+  electron.base64ToFile(dataUrl, await getPicturesPath() + "/" + Date.now() + ".png")
 })
 
 
